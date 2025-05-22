@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Inventory System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>QR Inventory System</h2>
+
+        <!-- Button to activate camera for scanning -->
+        <button id="scanButton">Scan QR Code</button>
+
+        <!-- Manual ID input -->
+        <input type="text" id="itemID" placeholder="Enter ID">
+        <button id="searchButton">Search</button>
+
+        <!-- Display inventory details -->
+        <div id="inventoryData">Item details will appear here.</div>
+
+        <!-- Form to add/delete items -->
+        <h3>Manage Inventory</h3>
+        <input type="text" id="newID" placeholder="Item ID">
+        <input type="text" id="newName" placeholder="Item Name">
+        <input type="text" id="newCategory" placeholder="Category">
+        <input type="text" id="newStock" placeholder="Stock">
+        <input type="text" id="newLocation" placeholder="Location">
+        <button id="addItemButton">Add Item</button>
+        <button id="deleteItemButton">Delete Item</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
