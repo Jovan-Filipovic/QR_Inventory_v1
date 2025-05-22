@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch data from CSV stored on GitHub
     function fetchInventory(itemID) {
-        fetch("https://raw.githubusercontent.com/yourusername/QR_Inventory_2025/main/inventory.csv")
+        fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
+               //https://raw.githubusercontent.com/Jovan-Filipovic/QR_Inventory_v1/refs/heads/main/inventory.csv
             .then(response => response.text())
             .then(data => {
                 const rows = data.split("\n").map(row => row.split(","));
