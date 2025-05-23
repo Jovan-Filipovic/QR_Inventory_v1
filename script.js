@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch inventory data and populate fields
     function fetchInventory(itemID) {
-        fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/inventory.csv")
+        fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
             .then(response => response.text())
             .then(data => {
                 const rows = data.split("\n").map(row => row.trim().split(","));
