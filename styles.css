@@ -11,6 +11,7 @@ header {
     color: white;
 }
 
+/* style the menubar */
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -42,6 +43,12 @@ form input {
     margin: 5px 0;
     border: 1px solid #ccc;
 }
+
+/* style the inputboxes */
+    label, input {
+        display: inline-block;
+        margin-right: 10px; /* Adjust spacing if needed */
+    }
 
 .button-group {
     display: flex;
