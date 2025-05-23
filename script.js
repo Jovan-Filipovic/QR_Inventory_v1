@@ -80,3 +80,28 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error("Error fetching inventory:", error));
     }
 });
+
+// ------------------------------------------------
+// This section covers for load of QR picture (*.png)
+// ------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loadPicButton = document.getElementById("loadPicButton");
+    const fileInput = document.getElementById("fileInput");
+
+    loadPicButton.addEventListener("click", function () {
+        fileInput.click(); // Opens file dialog
+    });
+
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file && file.name.endsWith(".png")) {
+            const fileName = file.name.replace(".png", ""); // Extract ID from filename
+            document.getElementById("itemID").value = fileName; // Auto-fill ID input
+            fetchInventory(fileName); // Search inventory
+        } else {
+            alert("Please select a valid PNG file.");
+        }
+    });
+});
