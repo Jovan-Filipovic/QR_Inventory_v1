@@ -1,3 +1,6 @@
+// ------------------------------------------------
+// This code does the Enter Key magic
+// ------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const searchButton = document.getElementById("searchButton");
     const itemIDInput = document.getElementById("itemID");
@@ -10,14 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Enable search button for search
     searchButton.addEventListener("click", function () {
         const itemID = itemIDInput.value;
         if (itemID) {
             fetchInventory(itemID);
         }
     });
-
+    
+    // ------------------------------------------------
     // Fetch inventory data and populate fields (without printing to body)
+    // ------------------------------------------------
+    
     function fetchInventory(itemID) {
         fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
             .then(response => response.text())
@@ -34,6 +41,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     alert("Item not found.");
                 }
+    
+    // ------------------------------------------------
+    // This section covers for the mobile app QR scan
+    // ------------------------------------------------
+                
+    document.addEventListener("DOMContentLoaded", function () {
+    const scanButton = document.getElementById("scanButton");
+    
+    scanButton.addEventListener("click", function () {
+        startScanner();
+    });
+
+    function startScanner() {
+        const scanner = new Html5Qrcode("qr-reader");
+        
+        scanner.start(
+            { facingMode: "environment" }, // Opens the rear camera
+            { fps: 10, qrbox: 250 },
+            (decodedText) => {
+                console.log("QR Code Scanned:", decodedText);
+                processScannedID(decodedText);
+                scanner.stop(); // Stop the scanner after successful scan
+            },
+            (errorMessage) => {
+                console.error("Scan Error:", errorMessage);
+            }
+        );
+    }
+
+    function processScannedID(id) {
+        document.getElementById("itemID").value = id; // Auto-fill ID field
+        fetchInventory(id); // Call your existing fetch function to retrieve data
+    }
+});
+
             })
             .catch(error => console.error("Error fetching inventory:", error));
     }
