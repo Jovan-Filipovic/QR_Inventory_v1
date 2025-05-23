@@ -1,4 +1,21 @@
-ID,Name,Category,Stock,Location
-12345,Pressure Valve,Mechanical Parts,15,Warehouse A
-67890,Hydraulic Pump,Fluid Systems,8,Warehouse B
-54321,Control Sensor,Electronics,10,Warehouse C
+ID,Name,Owner,Qty,Location
+10001,Laptop,Jovan,5,Office A
+10002,Smartphone,Alex,10,Storage Room
+10003,Monitor,Mia,7,IT Department
+10004,Keyboard,Lucas,15,Office B
+10005,Mouse,Sophia,20,Office C
+10006,Printer,Mark,3,Admin Room
+10007,USB Drive,Ella,50,Storage Room
+10008,Hard Drive,Leo,12,IT Department
+10009,Router,Emma,4,Server Room
+10010,Projector,Noah,2,Conference Room
+10011,Desk Chair,Olivia,8,Office A
+10012,Whiteboard,Ethan,6,Meeting Room
+10013,Coffee Machine,Ava,1,Kitchen
+10014,Filing Cabinet,Henry,5,Archive
+10015,Scanner,Isabella,2,Admin Room
+10016,Speaker,William,10,Storage Room
+10017,Headphones,Sophia,25,IT Department
+10018,Webcam,Daniel,18,Office B
+10019,Notebook,Emily,30,Office C
+10020,Extension Cord,Michael,40,Maintenance
