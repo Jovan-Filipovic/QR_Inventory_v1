@@ -21,46 +21,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     
-    // ------------------------------------------------
-    // Fetch inventory data and populate fields (without printing to body)
-    // ------------------------------------------------
-    
-    function fetchInventory(itemID) {
-        fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
-            .then(response => response.text())
-            .then(data => {
-                const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
-                const item = rows.slice(1).find(row => row[0] === itemID);
-    
-                if (item) {
-                    document.getElementById("newID").value = item[0];
-                    document.getElementById("newName").value = item[1];
-                    document.getElementById("newCategory").value = item[2];
-                    document.getElementById("newStock").value = item[3];
-                    document.getElementById("newLocation").value = item[4];
-    
-                    // Display QR image
-                    document.getElementById("qrImage").src = `${itemID}.png`;
-                    document.getElementById("qrImage").style.display = "block";
-                } else {
-                    alert("Item not found.");
-                    document.getElementById("qrImage").style.display = "none";
-                }
-            })
-            .catch(error => console.error("Error fetching inventory:", error));
-    }
+// ------------------------------------------------
+// Fetch inventory data and populate fields (without printing to body)
+// ------------------------------------------------
+function fetchInventory(itemID) {
+    fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
+            const item = rows.slice(1).find(row => row[0] === itemID);
+
+            if (item) {
+                document.getElementById("newID").value = item[0];
+                document.getElementById("newName").value = item[1];
+                document.getElementById("newCategory").value = item[2];
+                document.getElementById("newStock").value = item[3];
+                document.getElementById("newLocation").value = item[4];
+
+                // Ensure correct path for QR image
+                const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/${itemID}.png`;
+                document.getElementById("qrImage").src = imagePath;
+                document.getElementById("qrImage").style.display = "block";
+            } else {
+                alert("Item not found.");
+                document.getElementById("qrImage").style.display = "none";
+            }
+        })
+        .catch(error => console.error("Error fetching inventory:", error));
+}
+
 
     
-    // ------------------------------------------------
-    // This section covers for the mobile app QR scan
-    // ------------------------------------------------
+// ------------------------------------------------
+// This section covers for the mobile app QR scan
+// ------------------------------------------------
                 
-    document.addEventListener("DOMContentLoaded", function () {
-    const scanButton = document.getElementById("scanButton");
+document.addEventListener("DOMContentLoaded", function () {
+const scanButton = document.getElementById("scanButton");
     
-    scanButton.addEventListener("click", function () {
-        startScanner();
-    });
+scanButton.addEventListener("click", function () {
+    startScanner();
+});
 
     function startScanner() {
         const scanner = new Html5Qrcode("qr-reader");
