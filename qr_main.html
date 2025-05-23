@@ -33,19 +33,23 @@
         <button id="searchButton">Search</button>
 
         <!-- Inventory Details -->
-        <div id="inventoryData">Item details will appear here.</div>
+        <div id="inventoryData"></div>
 
         <!-- Inventory Management Form -->
         <h3>Manage Inventory</h3>
         <form>
-            <input type="text" id="newID" placeholder="Item ID" disabled>
-            <input type="text" id="newName" placeholder="Item Name">
-            <input type="text" id="newCategory" placeholder="Category">
-            <input type="text" id="newStock" placeholder="Stock">
-            <input type="text" id="newLocation" placeholder="Location">
+            <input type="text" id="newID" placeholder="Item ID" readonly>
+            <input type="text" id="newName" placeholder="Item Name" readonly>
+            <input type="text" id="newCategory" placeholder="Category" readonly>
+            <input type="text" id="newStock" placeholder="Stock" readonly>
+            <input type="text" id="newLocation" placeholder="Location" readonly>
+        </form>
+
+        <!-- Align Buttons Below -->
+        <div class="button-group">
             <button id="addItemButton">Add Item</button>
             <button id="deleteItemButton">Delete Item</button>
-        </form>
+        </div>
     </div>
 
     <!-- Footer -->
