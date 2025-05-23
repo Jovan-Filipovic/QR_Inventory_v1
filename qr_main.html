@@ -7,29 +7,52 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2>QR Inventory System</h2>
+    <!-- Header -->
+    <header>
+        <h1>QR Inventory System</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">Tools</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <!-- Button to activate camera for scanning -->
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Scan or Search Inventory</h2>
+
+        <!-- QR Scanner Button -->
         <button id="scanButton">Scan QR Code</button>
 
-        <!-- Manual ID input -->
+        <!-- Manual ID Entry -->
         <input type="text" id="itemID" placeholder="Enter ID">
         <button id="searchButton">Search</button>
 
-        <!-- Display inventory details -->
+        <!-- Inventory Details -->
         <div id="inventoryData">Item details will appear here.</div>
 
-        <!-- Form to add/delete items -->
+        <!-- Inventory Management Form -->
         <h3>Manage Inventory</h3>
-        <input type="text" id="newID" placeholder="Item ID">
-        <input type="text" id="newName" placeholder="Item Name">
-        <input type="text" id="newCategory" placeholder="Category">
-        <input type="text" id="newStock" placeholder="Stock">
-        <input type="text" id="newLocation" placeholder="Location">
-        <button id="addItemButton">Add Item</button>
-        <button id="deleteItemButton">Delete Item</button>
+        <form>
+            <input type="text" id="newID" placeholder="Item ID" disabled>
+            <input type="text" id="newName" placeholder="Item Name">
+            <input type="text" id="newCategory" placeholder="Category">
+            <input type="text" id="newStock" placeholder="Stock">
+            <input type="text" id="newLocation" placeholder="Location">
+            <button id="addItemButton">Add Item</button>
+            <button id="deleteItemButton">Delete Item</button>
+        </form>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Follow us on:</p>
+        <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a>
+    </footer>
 
     <script src="script.js"></script>
 </body>
