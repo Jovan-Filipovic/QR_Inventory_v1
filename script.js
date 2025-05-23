@@ -31,16 +31,25 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
                 const item = rows.slice(1).find(row => row[0] === itemID);
-
+    
                 if (item) {
                     document.getElementById("newID").value = item[0];
                     document.getElementById("newName").value = item[1];
                     document.getElementById("newCategory").value = item[2];
                     document.getElementById("newStock").value = item[3];
                     document.getElementById("newLocation").value = item[4];
+    
+                    // Display QR image
+                    document.getElementById("qrImage").src = `${itemID}.png`;
+                    document.getElementById("qrImage").style.display = "block";
                 } else {
                     alert("Item not found.");
+                    document.getElementById("qrImage").style.display = "none";
                 }
+            })
+            .catch(error => console.error("Error fetching inventory:", error));
+    }
+
     
     // ------------------------------------------------
     // This section covers for the mobile app QR scan
