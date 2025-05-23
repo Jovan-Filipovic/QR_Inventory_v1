@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to fetch inventory data
+    // Fetch inventory data and populate fields
     function fetchInventory(itemID) {
         fetch("https://raw.githubusercontent.com/yourusername/QR_Inventory_2025/main/inventory.csv")
             .then(response => response.text())
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("inventoryData").innerHTML =
                         headers.map((header, i) => `<p><strong>${header}:</strong> ${item[i]}</p>`).join("");
 
-                    // Populate form fields (except ID which remains disabled)
+                    // Populate readonly form fields
                     document.getElementById("newID").value = item[0];
                     document.getElementById("newName").value = item[1];
                     document.getElementById("newCategory").value = item[2];
