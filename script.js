@@ -31,11 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         headers.map((header, i) => `<p><strong>${header}:</strong> ${item[i]}</p>`).join("");
 
                     // Populate readonly form fields
-                    document.getElementById("newID").value = item[0];
-                    document.getElementById("newName").value = item[1];
-                    document.getElementById("newCategory").value = item[2];
-                    document.getElementById("newStock").value = item[3];
-                    document.getElementById("newLocation").value = item[4];
+                   if (document.getElementById("newID")) {
+                        document.getElementById("newID").value = item[0];
+                        document.getElementById("newName").value = item[1];
+                        document.getElementById("newCategory").value = item[2];
+                        document.getElementById("newStock").value = item[3];
+                        document.getElementById("newLocation").value = item[4];
+                    }
                 } else {
                     document.getElementById("inventoryData").innerHTML = "<p>Item not found.</p>";
                 }
