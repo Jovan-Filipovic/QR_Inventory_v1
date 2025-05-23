@@ -1,72 +1,45 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const inventoryData = document.getElementById("inventoryData");
     const searchButton = document.getElementById("searchButton");
-    const scanButton = document.getElementById("scanButton");
+    const itemIDInput = document.getElementById("itemID");
 
-    // Function to fetch data from CSV stored on GitHub
-    function fetchInventory(itemID) {
-        fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
-               //https://raw.githubusercontent.com/Jovan-Filipovic/QR_Inventory_v1/refs/heads/main/inventory.csv
-            .then(response => response.text())
-            .then(data => {
-                const rows = data.split("\n").map(row => row.split(","));
-                const headers = rows[0];
-                const item = rows.slice(1).find(row => row[0] === itemID);
+    // Enable Enter key for search
+    itemIDInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchButton.click();
+        }
+    });
 
-                if (item) {
-                    let output = "";
-                    headers.forEach((header, index) => {
-                        output += `<p><strong>${header}:</strong> ${item[index]}</p>`;
-                    });
-                    inventoryData.innerHTML = output;
-                } else {
-                    inventoryData.innerHTML = `<p>Item not found.</p>`;
-                }
-            })
-            .catch(error => console.error("Error fetching inventory:", error));
-    }
-
-    // Search button (manual entry)
     searchButton.addEventListener("click", function () {
-        const itemID = document.getElementById("itemID").value;
+        const itemID = itemIDInput.value;
         if (itemID) {
             fetchInventory(itemID);
         }
     });
 
-    // QR Scanner using System Camera
-    scanButton.addEventListener("click", function () {
-        const qrScanner = document.createElement("input");
-        qrScanner.setAttribute("type", "file");
-        qrScanner.setAttribute("accept", "image/*");
-        qrScanner.click();
+    // Function to fetch inventory data
+    function fetchInventory(itemID) {
+        fetch("https://raw.githubusercontent.com/yourusername/QR_Inventory_2025/main/inventory.csv")
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split("\n").map(row => row.trim().split(","));
+                const headers = rows[0];
+                const item = rows.slice(1).find(row => row[0] === itemID);
 
-        qrScanner.addEventListener("change", function () {
-            const file = qrScanner.files[0];
-            if (file) {
-                // Ideally use a QR library like QRCode.js to decode QR codes
-                alert("Scan feature needs an integrated QR decoder.");
-            }
-        });
-    });
+                if (item) {
+                    document.getElementById("inventoryData").innerHTML =
+                        headers.map((header, i) => `<p><strong>${header}:</strong> ${item[i]}</p>`).join("");
 
-    // Adding an item
-    document.getElementById("addItemButton").addEventListener("click", function () {
-        const newItem = [
-            document.getElementById("newID").value,
-            document.getElementById("newName").value,
-            document.getElementById("newCategory").value,
-            document.getElementById("newStock").value,
-            document.getElementById("newLocation").value
-        ];
-        console.log("Adding item:", newItem);
-        alert("Feature requires backend processing to update CSV.");
-    });
-
-    // Deleting an item
-    document.getElementById("deleteItemButton").addEventListener("click", function () {
-        const deleteID = document.getElementById("newID").value;
-        console.log("Deleting item:", deleteID);
-        alert("Feature requires backend processing to update CSV.");
-    });
+                    // Populate form fields (except ID which remains disabled)
+                    document.getElementById("newID").value = item[0];
+                    document.getElementById("newName").value = item[1];
+                    document.getElementById("newCategory").value = item[2];
+                    document.getElementById("newStock").value = item[3];
+                    document.getElementById("newLocation").value = item[4];
+                } else {
+                    document.getElementById("inventoryData").innerHTML = "<p>Item not found.</p>";
+                }
+            })
+            .catch(error => console.error("Error fetching inventory:", error));
+    }
 });
