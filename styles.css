@@ -36,19 +36,32 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button {
+form input {
+    width: 100%;
     padding: 10px;
-    margin: 10px;
+    margin: 5px 0;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+}
+
+input[readonly] {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
     background-color: #007BFF;
     color: white;
     border: none;
     cursor: pointer;
-}
-
-input {
-    padding: 10px;
-    margin: 5px;
-    width: 80%;
 }
 
 footer {
