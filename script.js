@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemIDInput = document.getElementById("itemID");
 
     // Enable Enter key for search
-    itemIDInput.addEventListener("keypress", function (event) {
+    itemIDInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             searchButton.click();
@@ -17,29 +17,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Fetch inventory data and populate fields
+    // Fetch inventory data and populate fields (without printing to body)
     function fetchInventory(itemID) {
         fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
             .then(response => response.text())
             .then(data => {
-                const rows = data.split("\n").map(row => row.trim().split(","));
-                const headers = rows[0];
+                const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
                 const item = rows.slice(1).find(row => row[0] === itemID);
 
                 if (item) {
-                    document.getElementById("inventoryData").innerHTML =
-                        headers.map((header, i) => `<p><strong>${header}:</strong> ${item[i]}</p>`).join("");
-
-                    // Populate readonly form fields
-                   if (document.getElementById("newID")) {
-                        document.getElementById("newID").value = item[0];
-                        document.getElementById("newName").value = item[1];
-                        document.getElementById("newCategory").value = item[2];
-                        document.getElementById("newStock").value = item[3];
-                        document.getElementById("newLocation").value = item[4];
-                    }
+                    document.getElementById("newID").value = item[0];
+                    document.getElementById("newName").value = item[1];
+                    document.getElementById("newCategory").value = item[2];
+                    document.getElementById("newStock").value = item[3];
+                    document.getElementById("newLocation").value = item[4];
                 } else {
-                    document.getElementById("inventoryData").innerHTML = "<p>Item not found.</p>";
+                    alert("Item not found.");
                 }
             })
             .catch(error => console.error("Error fetching inventory:", error));
