@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemIDInput = document.getElementById("itemID");
 
     // Enable Enter key for search
-    itemIDInput.addEventListener("keydown", function (event) {
+    itemIDInput.addEventListener("keyup", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             searchButton.click();
@@ -28,7 +28,9 @@ function fetchInventory(itemID) {
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
+            console.log("Fetched CSV Data:", data); // Log CSV output to check format
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
+            console.log("Parsed Rows:", rows); // Log parsed data
             const item = rows.slice(1).find(row => row[0] === itemID);
 
             if (item) {
@@ -98,6 +100,7 @@ scanButton.addEventListener("click", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const loadPicButton = document.getElementById("loadPicButton");
     const fileInput = document.getElementById("fileInput");
+    const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/${itemID}.png`;
 
     loadPicButton.addEventListener("click", function () {
         fileInput.click(); // Opens file dialog
