@@ -37,6 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (file && file.name.endsWith(".png")) {
             const fileName = file.name.replace(".png", ""); // Extract ID from filename
             document.getElementById("itemID").value = fileName; // Auto-fill ID input
+
+            // check if search button is triggered
+            searchButton.addEventListener("click", function () {
+                console.log("Search button clicked!"); // Debug check
+            });
+            
             fetchInventory(fileName); // Search inventory
         } else {
             alert("Please select a valid PNG file.");
@@ -46,15 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to fetch inventory data and populate fields
 function fetchInventory(itemID) {
-    console.log("Fetching inventory for ID:", itemID);
+    console.log("Fetching inventory for ID:", itemID); // Debug check
 
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
-            console.log("Fetched CSV Data:", data);
+            console.log("Fetched CSV Data:", data); // Log CSV content
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
-            console.log("Parsed Rows:", rows);
+            console.log("Parsed Rows:", rows); // Log parsed structure
+
             const item = rows.slice(1).find(row => row[0] === itemID);
+            console.log("Matching Item:", item); // Log if ID was found
 
             if (item) {
                 document.getElementById("newID").value = item[0];
@@ -63,7 +71,7 @@ function fetchInventory(itemID) {
                 document.getElementById("newQty").value = item[3];
                 document.getElementById("newLocation").value = item[4];
 
-                // ✅ Updated image path to reference "images" folder
+                // Show the corresponding QR image
                 const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
                 document.getElementById("qrImage").src = imagePath;
                 document.getElementById("qrImage").style.display = "block";
@@ -75,7 +83,10 @@ function fetchInventory(itemID) {
         .catch(error => console.error("Error fetching inventory:", error));
 }
 
+
+// ---------------------------------------
 // Function to start the QR scanner
+// ---------------------------------------
 function startScanner() {
     const scanner = new Html5Qrcode("qr-reader");
     
@@ -93,8 +104,17 @@ function startScanner() {
     );
 }
 
+// ---------------------------------------
 // Function to process the scanned QR ID
-function processScannedID(id) {
-    document.getElementById("itemID").value = id; // Auto-fill ID field
-    fetchInventory(id); // Call fetch function to retrieve data
+// ---------------------------------------
+function processScannedID(scannedText) {
+    console.log("Scanned Data:", scannedText); // Debugging check
+
+    // Extract only the first part of the scanned text
+    const itemID = scannedText.split(",")[0].trim(); 
+
+    console.log("Extracted ID:", itemID); // Verify if correct ID is extracted
+    document.getElementById("itemID").value = itemID; // Auto-fill ID field
+    fetchInventory(itemID); // Auto-fetch item details
 }
+
