@@ -53,6 +53,7 @@ function fetchInventory(itemID) {
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
+            const headers = ["ID", "Name", "Owner", "Qty", "Location"];
             console.log("Fetched CSV Data:", data);
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
             console.log("Parsed Rows:", rows);
