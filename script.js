@@ -76,8 +76,10 @@ function fetchInventory(itemID) {
 
                 // Show the corresponding QR image
                 const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
+                console.log("QR Image Path:", imagePath); // Debug log to check path
                 document.getElementById("qrImage").src = imagePath;
                 document.getElementById("qrImage").style.display = "block";
+
             } else {
                 alert("Item not found.");
                 document.getElementById("qrImage").style.display = "none";
