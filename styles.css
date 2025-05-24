@@ -53,6 +53,7 @@ nav ul li a {
 /* Inventory form Section */
 /* ---------------------- */
 form {
+    align: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
