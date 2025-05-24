@@ -88,6 +88,7 @@ function fetchInventory(itemID) {
 
 
 // Function to start the QR scanner
+// Function to start the QR scanner
 function startScanner() {
     const scanner = new Html5Qrcode("qr-reader");
 
@@ -105,14 +106,30 @@ function startScanner() {
     );
 }
 
-// Function to process the scanned QR ID
+// Function to process the scanned QR ID and display the QR image
 function processScannedID(scannedText) {
-    console.log("Scanned Data:", scannedText); // ✅ Debugging check
+    console.log("Scanned Data:", scannedText); // Debugging check
 
-    // ✅ Extract only the first part of the scanned text
+    // Extract only the first part of the scanned text
     const itemID = scannedText.split(",")[0].trim();
 
-    console.log("Extracted ID:", itemID); // ✅ Verify correct ID extraction
+    console.log("Extracted ID:", itemID); // Verify correct ID extraction
     document.getElementById("itemID").value = itemID; // Auto-fill ID field
     fetchInventory(itemID); // Auto-fetch item details
+
+    // Update QR image display after scan
+    const qrImage = document.getElementById("qrImage");
+    const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
+    console.log("QR Image Path:", imagePath); // Debugging check
+    qrImage.src = imagePath;
+    qrImage.style.display = "block";
+
+    // Handle loading errors
+    qrImage.onload = function () {
+        console.log("QR Image Loaded Successfully!");
+    };
+    qrImage.onerror = function () {
+        console.error("QR Image Failed to Load:", imagePath);
+    };
 }
+
