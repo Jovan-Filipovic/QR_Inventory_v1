@@ -1,3 +1,15 @@
+/* -------------------- */
+/* Header(Blue) Section */
+/* -------------------- */
+header {
+    background-color: #007BFF;
+    padding: 10px;
+    color: white;
+}
+
+/* ------------------ */
+/* Body(Gray) Section */
+/* ------------------ */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -5,30 +17,28 @@ body {
     overflow-y: auto;
 }
 
-header {
-    background-color: #007BFF;
-    padding: 10px;
-    color: white;
-}
-
-/* style the menubar */
+/* ----------------*/
+/* Menubar Section */
+/* --------------- */
 nav ul {
     list-style-type: none;
     padding: 0;
 }
-
+/* list items (not hovered) */
 nav ul li {
     display: inline;
     margin-right: 20px;
 }
-
+/* list items (hovered) */
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
-/* QR code container */
+/* ------------------------- */
+/* QR code container Section */
+/* ------------------------- */
 .container {
     width: 80%;
     margin: 50px auto;
@@ -38,6 +48,9 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* ---------------------- */
+/* Inventory form Section */
+/* ---------------------- */
 form {
     display: flex;
     flex-direction: column;
@@ -66,6 +79,9 @@ form {
     font-size: 1rem;
     }
 
+/* --------------------------- */
+/* Buttons Add, Delete Section */
+/* --------------------------- */
 .button-group {
     display: flex;
     justify-content: center;
@@ -81,6 +97,9 @@ button {
     cursor: pointer;
 }
 
+/* -------------------------- */
+/* Social media links Section */
+/* -------------------------- */
 footer {
     background-color: #333;
     color: white;
