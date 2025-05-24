@@ -50,7 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// -----------------------------------------------------
 // Function to fetch inventory data and populate fields
+// -----------------------------------------------------
+
 function fetchInventory(itemID) {
     console.log("Fetching inventory for ID:", itemID); // Debug check
 
