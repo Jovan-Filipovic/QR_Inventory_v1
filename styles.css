@@ -39,18 +39,32 @@ nav ul li a {
 /* ------------------------- */
 /* QR code container Section */
 /* ------------------------- */
+/* Ensure the main container takes full height and centers everything */
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 100vh; /* Makes container take full viewport height */
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 100vh; /* Ensure full height */
+    text-align: center; /* Aligns inline elements */
 }
+
+/* Center the QR code container */
+#qrContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px; /* Adds spacing */
+}
+
+/* Ensure the QR code image itself is visible and centered */
+#qrImage {
+    display: block;
+    margin: auto;
+}
+
 
 /* ---------------------- */
 /* Inventory form Section */
