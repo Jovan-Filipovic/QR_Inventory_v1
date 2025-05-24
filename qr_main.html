@@ -45,24 +45,28 @@
             <img id="qrImage" src="" alt="QR Code" style="display: none; width: 200px;">
         </div>
         
+        <!-- ------------------------- -->
         <!-- Inventory Management Form -->
+        <!-- ------------------------- -->
         <h3>Manage Inventory</h3>
+        
         <form>
-            <label for="newID">ID:</label>
-            <input type="text" id="newID">
-
-            <label for="newName">Name:</label>
-            <input type="text" id="newName">
-
+            <label for="newID">Item ID:</label>
+            <input type="text" id="newID" placeholder="Enter Item ID" title="Unique identifier for inventory item">
+        
+            <label for="newName">Item Name:</label>
+            <input type="text" id="newName" placeholder="Enter Item Name" title="Name of the inventory item">
+        
             <label for="newOwner">Owner:</label>
-            <input type="text" id="newQwner">
-
+            <input type="text" id="newOwner" placeholder="Enter Owner Name" title="Person or department assigned to the item">
+        
             <label for="newQty">Quantity:</label>
-            <input type="text" id="newQty">
-
+            <input type="number" id="newQty" placeholder="Enter Quantity" title="Total quantity available">
+        
             <label for="newLocation">Location:</label>
-            <input type="text" id="newLocation">
+            <input type="text" id="newLocation" placeholder="Enter Location" title="Where the item is stored">
         </form>
+
 
         <!-- Buttons Below -->
         <div class="button-group">
