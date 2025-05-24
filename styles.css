@@ -38,7 +38,7 @@ nav ul li a {
 }
 
 form input {
-    width: 100%;
+    width: 85%;
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
@@ -47,6 +47,7 @@ form input {
 /* style the inputboxes */
     label, input {
         display: inline-block;
+        text-align: left;
         margin-right: 10px; /* Adjust spacing if needed */
     }
 
