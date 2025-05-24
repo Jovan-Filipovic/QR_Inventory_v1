@@ -57,13 +57,13 @@ function fetchInventory(itemID) {
             console.log("Fetched CSV Data:", data);
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
             console.log("Parsed Rows:", rows);
-            const item = rows.slice(1).find(row => row[0] === itemID);
+            const item = rows.slice(1).find(row => row[0].trim() === itemID.toString());
 
             if (item) {
                 document.getElementById("newID").value = item[0];
-                document.getElementById("newName").value = item[1];
-                document.getElementById("newCategory").value = item[2];
-                document.getElementById("newStock").value = item[3];
+                document.getElementById("newDescription").value = item[1];
+                document.getElementById("newQwner").value = item[2];
+                document.getElementById("newQty").value = item[3];
                 document.getElementById("newLocation").value = item[4];
 
                 // Show the corresponding QR image
