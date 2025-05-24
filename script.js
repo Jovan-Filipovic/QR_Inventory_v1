@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // QR Scanner button triggers scanning
     scanButton.addEventListener("click", function () {
+        console.log("QR Scan button clicked!"); // ✅ Debugging check
         startScanner();
     });
 
@@ -57,24 +58,25 @@ function fetchInventory(itemID) {
             const item = rows.slice(1).find(row => row[0].trim() === itemID.trim());
             console.log("Matching Item:", item);
 
-           if (item) {
+            if (item) {
                 document.getElementById("newID").value = item[0];
                 document.getElementById("newName").value = item[1];
                 document.getElementById("newOwner").value = item[2];
                 document.getElementById("newQty").value = item[3];
                 document.getElementById("newLocation").value = item[4];
 
-                // Show QR Image (Updated for Debugging)
-                const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
-                console.log("QR Image Path:", imagePath); // Debugging check
-                document.getElementById("qrImage").src = imagePath;
-                document.getElementById("qrImage").style.display = "block";
+                // ✅ Show QR Image (Updated for Debugging)
+                const qrImage = document.getElementById("qrImage");
+                const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png?nocache=${new Date().getTime()}`;
+                console.log("QR Image Path:", imagePath); // ✅ Debugging check
+                qrImage.src = imagePath;
+                qrImage.style.display = "block";
 
-                // Debugging event listener for image loading errors
-                document.getElementById("qrImage").onload = function () {
+                // ✅ Debugging event listener for image loading errors
+                qrImage.onload = function () {
                     console.log("QR Image Loaded Successfully!");
                 };
-                document.getElementById("qrImage").onerror = function () {
+                qrImage.onerror = function () {
                     console.error("QR Image Failed to Load:", imagePath);
                 };
             } else {
@@ -86,7 +88,6 @@ function fetchInventory(itemID) {
         .catch(error => console.error("Fetch Error:", error));
 }
 
-
 // Function to start the QR scanner
 function startScanner() {
     const scanner = new Html5Qrcode("qr-reader");
@@ -97,7 +98,7 @@ function startScanner() {
         (decodedText) => {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
-            
+
             // ✅ Stop the scanner right after scanning a valid QR code
             scanner.stop().then(() => {
                 console.log("Camera stopped successfully!");
@@ -111,7 +112,6 @@ function startScanner() {
     );
 }
 
-
 // Function to process the scanned QR ID and display the QR image
 function processScannedID(scannedText) {
     console.log("Scanned Data:", scannedText);
@@ -121,7 +121,7 @@ function processScannedID(scannedText) {
     document.getElementById("itemID").value = itemID;
     fetchInventory(itemID);
 
-    // ✅ Force refresh QR image
+    // ✅ Force refresh QR image to prevent caching issues
     const qrImage = document.getElementById("qrImage");
     const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png?nocache=${new Date().getTime()}`;
     console.log("QR Image Path:", imagePath);
@@ -141,6 +141,3 @@ function processScannedID(scannedText) {
         console.error("QR Image Failed to Load:", imagePath);
     };
 }
-
-
-
