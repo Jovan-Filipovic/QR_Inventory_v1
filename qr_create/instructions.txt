@@ -1,2 +1,23 @@
+Instructions for Use
+--------------------
+
 This folder is created to provide an example to Users who are not skilled in creation of QR codes. Entire code is very short and written in pure Python 3 ver. 3.10.11. Tk 8.6.13.
 The Autor was using Thonny 4.1.4. installation package downloaded from https://thonny.org for use under Windows 11 made at the University of Tartu, Estonia with the help of from the open-source community, RAspberry Pi foundation and Cybernetics AS.
+
+Used packages:
+--------------
+ - os
+ - qrcode
+ - pandas
+ - pillow
+
+Quick reminder for the installation of packages:
+------------------------------------------------
+They are installed via Tools/Open System shell ...
+Under command prompt type commands, one after another:
+ - pip3 install os
+ - pip3 install qrcode
+ - pip3 install pandas
+ - pip3 install pillow
+If package is already installed on the system, there will be an answer like: " ... reqirement already satisfied."
+Good luck!
