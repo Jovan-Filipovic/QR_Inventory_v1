@@ -28,6 +28,7 @@ nav ul li a {
     font-weight: bold;
 }
 
+/* QR code container */
 .container {
     width: 80%;
     margin: 50px auto;
@@ -37,18 +38,32 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-form input {
-    width: 85%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    width: 100%;
+    }
 
-/* style the inputboxes */
-    label, input {
-        display: inline-block;
-        text-align: left;
-        margin-right: 10px; /* Adjust spacing if needed */
+    /* Wrapping each label and input */
+    .form-group {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    }
+
+    label {
+    width: 150px; /* Fixed width for labels */
+    text-align: left;
+    font-size: 1rem;
+    }
+
+    input {
+    flex: 1; /* Makes input scalable */
+    padding: 5px;
+    font-size: 1rem;
     }
 
 .button-group {
