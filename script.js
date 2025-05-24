@@ -55,18 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
 // -----------------------------------------------------
 
 function fetchInventory(itemID) {
-    const item = rows.slice(1).find(row => row[0].trim() === itemID.toString().trim());
-    console.log("Matching Item:", item); // ✅ Debug log to check if item was found
+
+    console.log("Attempting to fetch inventory for ID:", itemID); // ✅ Debugging check
 
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
-            console.log("Fetched CSV Data:", data); // Log CSV content
+            console.log("Fetched CSV Data:", data); // ✅ Log raw CSV content
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
-            console.log("Parsed Rows:", rows); // Log parsed structure
-
-            const item = rows.slice(1).find(row => row[0] === itemID);
-            console.log("Matching Item:", item); // Log if ID was found
+            console.log("Parsed Rows:", rows); // ✅ Log structured data
+            
+            // Ensure ID is correctly matched
+            const item = rows.slice(1).find(row => row[0].trim() === itemID.trim());
+            console.log("Matching Item:", item); // ✅ Verify if item is found
 
             if (item) {
                 document.getElementById("newID").value = item[0];
@@ -75,19 +76,20 @@ function fetchInventory(itemID) {
                 document.getElementById("newQty").value = item[3];
                 document.getElementById("newLocation").value = item[4];
 
-                // Show the corresponding QR image
+                // ✅ Load the QR image from the "images" folder
                 const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
-                console.log("QR Image Path:", imagePath); // Debug log to check path
+                console.log("QR Image Path:", imagePath); // ✅ Debugging check for correct path
                 document.getElementById("qrImage").src = imagePath;
                 document.getElementById("qrImage").style.display = "block";
-
             } else {
+                console.warn("Item not found!");
                 alert("Item not found.");
                 document.getElementById("qrImage").style.display = "none";
             }
         })
-        .catch(error => console.error("Error fetching inventory:", error));
+        .catch(error => console.error("Fetch Error:", error));
 }
+
 
 
 // ---------------------------------------
