@@ -37,12 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (file && file.name.endsWith(".png")) {
             const fileName = file.name.replace(".png", ""); // Extract ID from filename
             document.getElementById("itemID").value = fileName; // Auto-fill ID input
-
-            // check if search button is triggered
-            searchButton.addEventListener("click", function () {
-                console.log("Search button clicked!"); // Debug check
-            });
-            
             fetchInventory(fileName); // Search inventory
         } else {
             alert("Please select a valid PNG file.");
@@ -50,24 +44,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// -----------------------------------------------------
 // Function to fetch inventory data and populate fields
-// -----------------------------------------------------
-
 function fetchInventory(itemID) {
-
-    console.log("Attempting to fetch inventory for ID:", itemID); // ✅ Debugging check
+    console.log("Fetching inventory for ID:", itemID);
 
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
-            console.log("Fetched CSV Data:", data); // ✅ Log raw CSV content
+            console.log("Fetched CSV Data:", data);
             const rows = data.trim().split("\n").map(row => row.split(",").map(cell => cell.trim()));
-            console.log("Parsed Rows:", rows); // ✅ Log structured data
-            
-            // Ensure ID is correctly matched
+            console.log("Parsed Rows:", rows);
             const item = rows.slice(1).find(row => row[0].trim() === itemID.trim());
-            console.log("Matching Item:", item); // ✅ Verify if item is found
+            console.log("Matching Item:", item);
 
             if (item) {
                 document.getElementById("newID").value = item[0];
@@ -76,11 +64,19 @@ function fetchInventory(itemID) {
                 document.getElementById("newQty").value = item[3];
                 document.getElementById("newLocation").value = item[4];
 
-                // ✅ Load the QR image from the "images" folder
+                // ✅ Show QR Image (Updated for Debugging)
                 const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
-                console.log("QR Image Path:", imagePath); // ✅ Debugging check for correct path
+                console.log("QR Image Path:", imagePath); // ✅ Debugging check
                 document.getElementById("qrImage").src = imagePath;
                 document.getElementById("qrImage").style.display = "block";
+
+                // ✅ Debugging event listener for image loading errors
+                document.getElementById("qrImage").onload = function () {
+                    console.log("QR Image Loaded Successfully!");
+                };
+                document.getElementById("qrImage").onerror = function () {
+                    console.error("QR Image Failed to Load:", imagePath);
+                };
             } else {
                 console.warn("Item not found!");
                 alert("Item not found.");
@@ -90,14 +86,10 @@ function fetchInventory(itemID) {
         .catch(error => console.error("Fetch Error:", error));
 }
 
-
-
-// ---------------------------------------
 // Function to start the QR scanner
-// ---------------------------------------
 function startScanner() {
     const scanner = new Html5Qrcode("qr-reader");
-    
+
     scanner.start(
         { facingMode: "environment" }, // Opens the rear camera
         { fps: 10, qrbox: 250 },
@@ -112,17 +104,14 @@ function startScanner() {
     );
 }
 
-// ---------------------------------------
 // Function to process the scanned QR ID
-// ---------------------------------------
 function processScannedID(scannedText) {
-    console.log("Scanned Data:", scannedText); // Debugging check
+    console.log("Scanned Data:", scannedText); // ✅ Debugging check
 
-    // Extract only the first part of the scanned text
-    const itemID = scannedText.split(",")[0].trim(); 
+    // ✅ Extract only the first part of the scanned text
+    const itemID = scannedText.split(",")[0].trim();
 
-    console.log("Extracted ID:", itemID); // Verify if correct ID is extracted
+    console.log("Extracted ID:", itemID); // ✅ Verify correct ID extraction
     document.getElementById("itemID").value = itemID; // Auto-fill ID field
     fetchInventory(itemID); // Auto-fetch item details
 }
-
