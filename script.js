@@ -57,34 +57,29 @@ function fetchInventory(itemID) {
             const item = rows.slice(1).find(row => row[0].trim() === itemID.trim());
             console.log("Matching Item:", item);
 
-            if (item) {
-                document.getElementById("newID").value = item[0];
-                document.getElementById("newName").value = item[1];
-                document.getElementById("newOwner").value = item[2];
-                document.getElementById("newQty").value = item[3];
-                document.getElementById("newLocation").value = item[4];
-
-                // ✅ Show QR Image (Updated for Debugging)
-                const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
-                console.log("QR Image Path:", imagePath); // ✅ Debugging check
-                document.getElementById("qrImage").src = imagePath;
-                document.getElementById("qrImage").style.display = "block";
-
-                // ✅ Debugging event listener for image loading errors
-                document.getElementById("qrImage").onload = function () {
-                    console.log("QR Image Loaded Successfully!");
-                };
-                document.getElementById("qrImage").onerror = function () {
-                    console.error("QR Image Failed to Load:", imagePath);
-                };
-            } else {
-                console.warn("Item not found!");
-                alert("Item not found.");
-                document.getElementById("qrImage").style.display = "none";
-            }
-        })
-        .catch(error => console.error("Fetch Error:", error));
+           if (item) {
+               document.getElementById("newID").value = item[0];
+               document.getElementById("newName").value = item[1];
+               document.getElementById("newOwner").value = item[2];
+               document.getElementById("newQty").value = item[3];
+               document.getElementById("newLocation").value = item[4];
+            
+               // Update QR image display
+               const qrImage = document.getElementById("qrImage");
+               const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png`;
+               console.log("QR Image Path:", imagePath); // Debugging check
+               qrImage.src = imagePath;
+               qrImage.style.display = "block";
+            
+               // Handle loading errors
+               qrImage.onload = function () {
+                   console.log("QR Image Loaded Successfully!");
+               };
+               qrImage.onerror = function () {
+                   console.error("QR Image Failed to Load:", imagePath);
+               };
 }
+
 
 // Function to start the QR scanner
 function startScanner() {
