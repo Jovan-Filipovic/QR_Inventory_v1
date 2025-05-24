@@ -65,6 +65,11 @@ nav ul li a {
     margin: auto;
 }
 
+#itemID {
+    height: 30px; /* Adjust to a reasonable height */
+    padding: 5px; /* Ensure good spacing */
+    font-size: 1rem; /* Keep text readable */
+}
 
 /* ---------------------- */
 /* Inventory form Section */
