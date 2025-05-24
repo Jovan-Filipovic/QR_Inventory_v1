@@ -60,25 +60,26 @@ form {
     width: 100%;
     }
 
-    /* Wrapping each label and input */
-    .form-group {
+/* Wrapping each label and input in one row */
+.form-group {
     display: flex;
     align-items: center;
     justify-content: left;
     width: 100%;
-    }
+    gap: 10px;
+}
 
-    label {
-    width: 150px; /* Fixed width for labels */
+label {
+    width: 150px; /* Fixed width to keep alignment */
     text-align: left;
     font-size: 1rem;
-    }
+}
 
-    input {
-    flex: 1; /* Makes input scalable */
+input {
+    flex: 1; /* Scales input width */
     padding: 5px;
     font-size: 1rem;
-    }
+}
 
 /* --------------------------- */
 /* Buttons Add, Delete Section */
