@@ -25,6 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // Fetch inventory data and populate fields (without printing to body)
 // ------------------------------------------------
 function fetchInventory(itemID) {
+    
+    document.getElementById("searchButton").addEventListener("click", function () {
+    console.log("Search button clicked!"); // Debugging check
+    });
+    
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
         .then(data => {
