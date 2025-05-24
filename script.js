@@ -20,10 +20,49 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchInventory(itemID);
         }
     });
+   
+// ------------------------------------------------
+// This section covers for the mobile app QR scan
+// ------------------------------------------------
+                
+document.addEventListener("DOMContentLoaded", function () {
+const scanButton = document.getElementById("scanButton");
     
-// ------------------------------------------------
+scanButton.addEventListener("click", function () {
+    startScanner();
+});
+.catch(error => console.error("Error fetching inventory:", error));
+    }
+});
+
+// --------------------------------------------------
+// This section covers for load of QR picture (*.png)
+// --------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const loadPicButton = document.getElementById("loadPicButton");
+    const fileInput = document.getElementById("fileInput");
+    const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/${itemID}.png`;
+
+    loadPicButton.addEventListener("click", function () {
+        fileInput.click(); // Opens file dialog
+    });
+
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file && file.name.endsWith(".png")) {
+            const fileName = file.name.replace(".png", ""); // Extract ID from filename
+            document.getElementById("itemID").value = fileName; // Auto-fill ID input
+            fetchInventory(fileName); // Search inventory
+        } else {
+            alert("Please select a valid PNG file.");
+        }
+    });
+});
+
+// ------------------------------------------------------------------
 // Fetch inventory data and populate fields (without printing to body)
-// ------------------------------------------------
+// -------------------------------------------------------------------
 function fetchInventory(itemID) {
     
     document.getElementById("searchButton").addEventListener("click", function () {
@@ -57,69 +96,35 @@ function fetchInventory(itemID) {
         .catch(error => console.error("Error fetching inventory:", error));
 }
 
-
-    
-// ------------------------------------------------
-// This section covers for the mobile app QR scan
-// ------------------------------------------------
-                
-document.addEventListener("DOMContentLoaded", function () {
-const scanButton = document.getElementById("scanButton");
-    
-scanButton.addEventListener("click", function () {
-    startScanner();
-});
-
-    function startScanner() {
-        const scanner = new Html5Qrcode("qr-reader");
-        
-        scanner.start(
-            { facingMode: "environment" }, // Opens the rear camera
-            { fps: 10, qrbox: 250 },
-            (decodedText) => {
-                console.log("QR Code Scanned:", decodedText);
-                processScannedID(decodedText);
-                scanner.stop(); // Stop the scanner after successful scan
-            },
-            (errorMessage) => {
-                console.error("Scan Error:", errorMessage);
-            }
-        );
-    }
-
-    function processScannedID(id) {
-        document.getElementById("itemID").value = id; // Auto-fill ID field
-        fetchInventory(id); // Call your existing fetch function to retrieve data
-    }
-});
-
-            })
-            .catch(error => console.error("Error fetching inventory:", error));
-    }
-});
-
-// ------------------------------------------------
-// This section covers for load of QR picture (*.png)
-// ------------------------------------------------
-
-document.addEventListener("DOMContentLoaded", function () {
-    const loadPicButton = document.getElementById("loadPicButton");
-    const fileInput = document.getElementById("fileInput");
-    const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/${itemID}.png`;
-
-    loadPicButton.addEventListener("click", function () {
-        fileInput.click(); // Opens file dialog
-    });
-
-    fileInput.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-
-        if (file && file.name.endsWith(".png")) {
-            const fileName = file.name.replace(".png", ""); // Extract ID from filename
-            document.getElementById("itemID").value = fileName; // Auto-fill ID input
-            fetchInventory(fileName); // Search inventory
-        } else {
-            alert("Please select a valid PNG file.");
+// ------------------------------------------------------------------
+// function startScanner
+// -------------------------------------------------------------------
+function startScanner() {
+    const scanner = new Html5Qrcode("qr-reader");    
+    scanner.start(
+        { facingMode: "environment" }, // Opens the rear camera
+        { fps: 10, qrbox: 250 },
+        (decodedText) => {
+            console.log("QR Code Scanned:", decodedText);
+            processScannedID(decodedText);
+            scanner.stop(); // Stop the scanner after successful scan
+        },
+        (errorMessage) => {
+            console.error("Scan Error:", errorMessage);
         }
-    });
+    );
+}
+
+// ------------------------------------------------------------------
+// function process Scanned ID
+// -------------------------------------------------------------------
+function processScannedID(id) {
+    document.getElementById("itemID").value = id; // Auto-fill ID field
+    fetchInventory(id); // Call your existing fetch function to retrieve data
+    }
+});
+
+    })
+        .catch(error => console.error("Error fetching inventory:", error));
+    }
 });
