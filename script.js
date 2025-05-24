@@ -55,7 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // -----------------------------------------------------
 
 function fetchInventory(itemID) {
-    console.log("Fetching inventory for ID:", itemID); // Debug check
+    const item = rows.slice(1).find(row => row[0].trim() === itemID.toString().trim());
+    console.log("Matching Item:", item); // ✅ Debug log to check if item was found
 
     fetch("https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/inventory.csv")
         .then(response => response.text())
