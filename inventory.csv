@@ -1,4 +1,4 @@
-ID,Name,Owner,Qty,Location
+ID,Description,Owner,Qty,Office
 10001,Laptop,Jovan,5,Office A
 10002,Smartphone,Alex,10,Storage Room
 10003,Monitor,Mia,7,IT Department
