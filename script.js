@@ -88,7 +88,6 @@ function fetchInventory(itemID) {
 
 
 // Function to start the QR scanner
-// Function to start the QR scanner
 function startScanner() {
     const scanner = new Html5Qrcode("qr-reader");
 
@@ -98,7 +97,13 @@ function startScanner() {
         (decodedText) => {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
-            scanner.stop(); // Stop the scanner after successful scan
+            
+            // ✅ Stop the scanner right after scanning a valid QR code
+            scanner.stop().then(() => {
+                console.log("Camera stopped successfully!");
+            }).catch(error => {
+                console.error("Error stopping scanner:", error);
+            });
         },
         (errorMessage) => {
             console.error("Scan Error:", errorMessage);
@@ -106,24 +111,27 @@ function startScanner() {
     );
 }
 
+
 // Function to process the scanned QR ID and display the QR image
 function processScannedID(scannedText) {
-    console.log("Scanned Data:", scannedText); // ✅ Debugging check
+    console.log("Scanned Data:", scannedText);
 
     // ✅ Extract only the first part of the scanned text
     const itemID = scannedText.split(",")[0].trim();
-    console.log("Extracted ID:", itemID);
+    document.getElementById("itemID").value = itemID;
+    fetchInventory(itemID);
 
-    document.getElementById("itemID").value = itemID; // Auto-fill ID field
-    fetchInventory(itemID); // Auto-fetch item details
-
-    // ✅ Force refresh QR image to prevent caching issues
+    // ✅ Force refresh QR image
     const qrImage = document.getElementById("qrImage");
     const imagePath = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${itemID}.png?nocache=${new Date().getTime()}`;
     console.log("QR Image Path:", imagePath);
     
     qrImage.src = imagePath;
     qrImage.style.display = "block";
+
+    // ✅ Ensure it's inside the correct container
+    const qrContainer = document.getElementById("qrContainer");
+    qrContainer.appendChild(qrImage);
 
     // ✅ Handle loading errors
     qrImage.onload = function () {
@@ -133,5 +141,6 @@ function processScannedID(scannedText) {
         console.error("QR Image Failed to Load:", imagePath);
     };
 }
+
 
 
