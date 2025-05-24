@@ -90,8 +90,12 @@ function fetchInventory(itemID) {
 
 // Function to start the QR scanner
 function startScanner() {
+    // check if scanner corectly loaded before use
+    if (!window.Html5Qrcode) {
+        console.error("Html5Qrcode library not found!");
+    }
+    
     const scanner = new Html5Qrcode("qr-reader");
-
     scanner.start(
         { facingMode: "environment" }, // Opens the rear camera
         { fps: 10, qrbox: 250 },
