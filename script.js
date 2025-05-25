@@ -97,7 +97,7 @@ function startScanner() {
         return;
     }
 
-    const scanner = new Html5Qrcode("qr-reader"); 
+    const scanner = new Html5Qrcode("qr-reader");
     window.scannerInstance = scanner; // ✅ Store scanner globally
 
     scanner.start(
@@ -107,33 +107,34 @@ function startScanner() {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
 
-            // ✅ Stop scanner immediately after successful scan
-            scanner.stop().then(() => {
-                console.log("Camera stopped successfully!");
+            // ✅ Load QR image FIRST, before stopping the scanner
+            const qrImage = document.getElementById("qrImage");
+            qrImage.src = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${decodedText}.png?nocache=${new Date().getTime()}`;
+            qrImage.style.display = "block";
 
-                // ✅ Completely remove the scanner instance to free up resources
-                window.scannerInstance = null;
+            // ✅ Move QR image ABOVE inventory properties
+            const inventoryProperties = document.querySelector("h2:nth-of-type(2)");
+            inventoryProperties.parentNode.insertBefore(qrImage, inventoryProperties);
 
-                // ✅ Hide the camera feed
-                document.getElementById("qr-reader").style.display = "none";
+            // ✅ Stop scanner AFTER the image loads
+            qrImage.onload = function () {
+                console.log("QR Image Loaded Successfully!");
 
-                // ✅ Replace with the scanned QR image
-                const qrImage = document.getElementById("qrImage");
-                qrImage.src = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${decodedText}.png?nocache=${new Date().getTime()}`;
-                qrImage.style.display = "block";
-
-                // ✅ Move QR image to replace the camera feed
-                const qrContainer = document.getElementById("qrContainer");
-                qrContainer.appendChild(qrImage);
-            }).catch(error => {
-                console.error("Error stopping scanner:", error);
-            });
+                scanner.stop().then(() => {
+                    console.log("Camera stopped successfully!");
+                    document.getElementById("qr-reader").style.display = "none";
+                    window.scannerInstance = null; // ✅ Free memory
+                }).catch(error => {
+                    console.error("Error stopping scanner:", error);
+                });
+            };
         },
         (errorMessage) => {
             console.error("Scan Error:", errorMessage);
         }
     );
 }
+
 
 
 
