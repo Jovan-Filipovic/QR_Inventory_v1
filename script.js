@@ -103,19 +103,19 @@ function startScanner() {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
 
-            // Stop scanner after recognizing a QR code
+            // ✅ Stop scanner after recognizing a QR code
             scanner.stop().then(() => {
                 console.log("Camera stopped successfully!");
 
-                // Hide the camera feed
+                // ✅ Hide the camera feed
                 document.getElementById("qr-reader").style.display = "none";
 
-                // Replace with the scanned QR image
+                // ✅ Replace with the scanned QR image
                 const qrImage = document.getElementById("qrImage");
                 qrImage.src = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${decodedText}.png?nocache=${new Date().getTime()}`;
                 qrImage.style.display = "block";
 
-                // Move QR image to replace the camera feed
+                // ✅ Move QR image to replace the camera feed
                 const qrContainer = document.getElementById("qrContainer");
                 qrContainer.appendChild(qrImage);
             }).catch(error => {
@@ -127,6 +127,7 @@ function startScanner() {
         }
     );
 }
+
 
 
 // Function to process the scanned QR ID and display the QR image
