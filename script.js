@@ -97,17 +97,22 @@ function startScanner() {
         return;
     }
 
-    const scanner = new Html5Qrcode("qr-reader");
+    const scanner = new Html5Qrcode("qr-reader"); 
+    window.scannerInstance = scanner; // ✅ Store scanner globally
+
     scanner.start(
-        { facingMode: "environment" }, 
+        { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
         (decodedText) => {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
 
-            // ✅ Stop scanner after recognizing a QR code
+            // ✅ Stop scanner immediately after successful scan
             scanner.stop().then(() => {
                 console.log("Camera stopped successfully!");
+
+                // ✅ Completely remove the scanner instance to free up resources
+                window.scannerInstance = null;
 
                 // ✅ Hide the camera feed
                 document.getElementById("qr-reader").style.display = "none";
@@ -129,6 +134,7 @@ function startScanner() {
         }
     );
 }
+
 
 
 
