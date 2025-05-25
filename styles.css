@@ -1,4 +1,4 @@
-/* -------------------- */
+er/* -------------------- */
 /* Header(Blue) Section */
 /* -------------------- */
 header {
@@ -51,7 +51,7 @@ nav ul li a {
 }
 
 /* Center the QR code container */
-#qrContainer {
+#qr-reader {
     display: flex;
     align-items: center;
     justify-content: center;
