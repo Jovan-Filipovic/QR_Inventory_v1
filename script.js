@@ -134,8 +134,8 @@ function processScannedID(scannedText) {
     qrImage.style.display = "block";
 
     // ✅ Ensure it's inside the correct container
-    const qr-reader = document.getElementById("qr-reader");
-    qr-reader.appendChild(qrImage);
+    const qrContainer = document.getElementById("qr-reader");
+    qrContainer.appendChild(qrImage);
 
     // ✅ Handle loading errors
     qrImage.onload = function () {
