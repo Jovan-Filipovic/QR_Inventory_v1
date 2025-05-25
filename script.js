@@ -90,31 +90,41 @@ function fetchInventory(itemID) {
 
 // Function to start the QR scanner
 function startScanner() {
-    // check if scanner corectly loaded before use
     if (!window.Html5Qrcode) {
         console.error("Html5Qrcode library not found!");
+        return;
     }
-    
+
     const scanner = new Html5Qrcode("qr-reader");
     scanner.start(
-        { facingMode: "environment" }, // Opens the rear camera
+        { facingMode: "environment" }, 
         { fps: 10, qrbox: 250 },
         (decodedText) => {
             console.log("QR Code Scanned:", decodedText);
             processScannedID(decodedText);
 
-            // ✅ Stop the scanner right after scanning a valid QR code
+            // Stop camera after scanning
             scanner.stop().then(() => {
                 console.log("Camera stopped successfully!");
             }).catch(error => {
                 console.error("Error stopping scanner:", error);
             });
+
+            // Move QR Image ABOVE Inventory Properties
+            const qrImage = document.getElementById("qrImage");
+            qrImage.src = `https://raw.githubusercontent.com/jovan-filipovic/QR_Inventory_v1/main/images/${decodedText}.png?nocache=${new Date().getTime()}`;
+            qrImage.style.display = "block";
+
+            // Move it ABOVE the inventory section
+            const inventoryProperties = document.querySelector("h2:nth-of-type(2)");
+            inventoryProperties.parentNode.insertBefore(qrImage, inventoryProperties);
         },
         (errorMessage) => {
             console.error("Scan Error:", errorMessage);
         }
     );
 }
+
 
 // Function to process the scanned QR ID and display the QR image
 function processScannedID(scannedText) {
