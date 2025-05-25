@@ -131,3 +131,12 @@ footer {
     padding: 20px;
     margin-top: 40px;
 }
+
+footer a {
+    color: white; /* Makes footer links stand out */
+    text-decoration: none; /* Removes underline */
+}
+
+footer a:hover {
+    color: yellow; /* Highlights when hovered */
+}
